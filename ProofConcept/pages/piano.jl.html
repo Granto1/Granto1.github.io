@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthesizer</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/727/727244.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Bookman, URW Bookman L, serif;
+        }
+
+        .container {
+            background-image:
+                linear-gradient(90deg, #0000FF, rgb(255 255 1 / 70%));
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-container {
+            color: #fff;
+            text-align: center;
+        }
+
+        .vert {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hori {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .piano-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .piano-keys-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        .piano-keys {
+            width: 5rem;
+            cursor: pointer;
+            position: relative;
+            height: 20rem;
+            border-radius: 10px;
+            border: 1px solid #000;
+        }
+
+        .white-key {
+            background-color: #fff;
+        }
+
+        .black-key {
+            width: 2rem;
+            height: 13rem;
+            border-radius: 5px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            background-color: #000;
+            z-index: 2;
+            margin: 0 -20px 0 -20px;
+        }
+
+        @media screen and (min-width: 821px) and (max-width: 1024px) {
+            .piano-keys {
+                width: 4rem;
+                cursor: pointer;
+                position: relative;
+                height: 20rem;
+                border-radius: 10px;
+                border: 1px solid #000;
+            }
+
+            .black-key {
+                width: 2rem;
+                height: 13rem;
+                border-radius: 5px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                background-color: #000;
+                z-index: 2;
+                margin: 0 -20px 0 -20px;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 820px) {
+            .piano-keys {
+                width: 3.5rem;
+                cursor: pointer;
+                position: relative;
+                height: 16rem;
+                border-radius: 10px;
+                border: 1px solid #000;
+            }
+
+            .black-key {
+                width: 1.8rem;
+                height: 10rem;
+                border-radius: 5px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                background-color: #000;
+                z-index: 2;
+                margin: 0 -20px 0 -20px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .piano-container {
+                width: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                overflow: auto;
+            }
+
+            .piano-keys {
+                width: 3.5rem;
+                cursor: pointer;
+                position: relative;
+                height: 16rem;
+                border-radius: 10px;
+                border: 1px solid #000;
+            }
+
+            .black-key {
+                width: 1.8rem;
+                height: 10rem;
+                border-radius: 5px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                background-color: #000;
+                z-index: 2;
+                margin: 0 -20px 0 -20px;
+            }
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            orient: "vertical"
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="/" class="w3-bar-item w3-button"><b>SynthLab</b> Synth Education</a>
+            <!-- Float links to the right. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="/piano" class="w3-bar-item w3-button">Synthesizer</a>
+                <a href="/vibratoLesson" class="w3-bar-item w3-button">Vibrato</a>
+                <a href="/tremoloLesson" class="w3-bar-item w3-button">Tremolo</a>
+                <a href="/aboutus" class="w3-bar-item w3-button">About Us</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="intro-container">
+            <div class="btn-group">
+                <button data-number="5">SemiSinusoid</button>
+                <button data-number="4">Sinusoid</button>
+                <button data-number="2">Square</button>
+                <button data-number="3">Sawtooth</button>
+                <button data-number="1">Triangle</button>
+            </div>
+
+            <div class="hori">
+                <div class="vert">
+                    <span>Tremolo</span>
+                    <div class="slidecontainer">
+                        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="myRange">
+                        <span class="sliderval" id="range_slider__value">Depth</span>
+                    </div>
+                    <div class="slidecontainer">
+                        <input type="range" min="3" max="10" value="0" step="1" class="slider" id="myRange4">
+                        <span class="sliderval" id="range_slider__value">Oscillating Frequency</span>
+                    </div>
+                </div>
+                <p>
+
+                </p>
+                <div class="vert">
+                    <span>Vibrato</span>
+                    <div class="slidecontainer">
+                        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="myRange2">
+                        <span class="sliderval" id="range_slider__value">Depth</span>
+                    </div>
+                    <input type="range" min="3" max="10" value="0" step="1" class="slider" id="myRange3">
+                    <span class="sliderval" id="range_slider__value2">Oscillating Frequency</span>
+                </div>
+                <p>
+
+                </p>
+                <div class="vert">
+                    <span>Distortion</span>
+                    <div class="slidecontainer">
+                        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="distortH">
+                        <span class="sliderval" id="range_slider__value">Harmonic</span>
+                    </div>
+                    <input type="range" min="0" max="10" value="0" step="1" class="slider" id="distortP">
+                    <span class="sliderval" id="range_slider__value2">Power</span>
+                </div>
+            </div>
+            <div class="hori">
+                <span>AHDSR</span>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="10" value="10" step="1" class="slider" id="attack">
+                    <span class="sliderval" id="range_slider__value">Attack</span>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="10" value="10" step="1" class="slider" id="hold">
+                    <span class="sliderval" id="range_slider__value">Hold</span>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="10" value="10" step="1" class="slider" id="decay">
+                    <span class="sliderval" id="range_slider__value">Decay</span>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="10" value="10" step="1" class="slider" id="sustain">
+                    <span class="sliderval" id="range_slider__value">Sustain</span>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="10" value="10" step="1" class="slider" id="release">
+                    <span class="sliderval" id="range_slider__value">Release</span>
+                </div>
+            </div>
+            <span>Harmonics</span>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="10" value="1" step="1" class="slider" id="Harmonics">
+                <span class="sliderval" id="range_slider__value"></span>
+            </div>
+            <span>Volume</span>
+            <input type="range" min="1" max="10" value="10" step="1" class="slider" id="volSlider">
+            <p></p>
+            <span>Octave</span>
+            <div class="hori">
+                <div class="octBtnGroup">
+                    <button oct=-1>Down</button>
+                    <button oct=1>Up</button>
+                </div>
+                <div class="resetBtnGroup">
+                    <button oct=0>Reset</button>
+                </div>
+            </div>
+        </div>
+        <div id="output"></div>
+
+        <div class="piano-container">
+            <ul class="piano-keys-list">
+                <li class="piano-keys white-key" data-list="01">
+                </li>
+                <li class="piano-keys black-key" data-list="02">
+                </li>
+                <li class="piano-keys white-key" data-list="03">
+                </li>
+                <li class="piano-keys black-key" data-list="04">
+                </li>
+                <li class="piano-keys white-key" data-list="05">
+                </li>
+                <li class="piano-keys black-key" data-list="06">
+                </li>
+                <li class="piano-keys white-key" data-list="07">
+                </li>
+                <li class="piano-keys white-key" data-list="08">
+                </li>
+                <li class="piano-keys black-key" data-list="09">
+                </li>
+                <li class="piano-keys white-key" data-list="10">
+                </li>
+                <li class="piano-keys black-key" data-list="11">
+                </li>
+                <li class="piano-keys white-key" data-list="12">
+                </li>
+                <li class="piano-keys white-key" data-list="13">
+                </li>
+                <li class="piano-keys black-key" data-list="14">
+                </li>
+                <li class="piano-keys white-key" data-list="15">
+                </li>
+                <li class="piano-keys black-key" data-list="16">
+                </li>
+                <li class="piano-keys white-key" data-list="17">
+                </li>
+                <li class="piano-keys black-key" data-list="18">
+                </li>
+                <li class="piano-keys white-key" data-list="19">
+                </li>
+                <li class="piano-keys white-key" data-list="20">
+                </li>
+                <li class="piano-keys black-key" data-list="21">
+                </li>
+                <li class="piano-keys white-key" data-list="22">
+                </li>
+                <li class="piano-keys black-key" data-list="23">
+                </li>
+                <li class="piano-keys white-key" data-list=24>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const keys = document.querySelectorAll('.piano-keys');
+
+        keys.forEach((key) => {
+            key.addEventListener('click', (e) => {
+                keyData = key.getAttribute('data-list');
+
+                // Get the div element by its ID
+                // const outputDiv = document.getElementById("output");
+                k = keyData.toString();
+
+                // Update the content of the div
+                // outputDiv.innerHTML = keyData.toString();
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "/piano");
+
+                xhr.send(k);
+            })
+        })
+
+        document.addEventListener('keydown', function (event) {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/pianoc");
+
+            code = event.key;
+            xhr.send(code);
+        });
+
+        const buttons = document.querySelectorAll('.btn-group');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                const buttonNumber = event.target.getAttribute('data-number');
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/waveform");
+                num = buttonNumber.toString();
+                xhr.send(num)
+            });
+        });
+
+        const octBtn = document.querySelectorAll('.octBtnGroup');
+
+        octBtn.forEach(button => {
+            button.addEventListener('click', function (event) {
+                const buttonNumber = event.target.getAttribute('oct');
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/octaveShift");
+                num = buttonNumber.toString();
+                xhr.send(num)
+            });
+        });
+
+        const resetBtn = document.querySelectorAll('.resetBtnGroup');
+
+        resetBtn.forEach(button => {
+            button.addEventListener('click', function (event) {
+                const buttonNumber = event.target.getAttribute('oct');
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/octaveReset");
+                num = buttonNumber.toString();
+                xhr.send(num)
+            });
+        });
+
+        var slider = document.getElementById("myRange");
+        slider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/tremoloDepth");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var slider2 = document.getElementById("myRange2");
+        slider2.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/vibratoDepth");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var slider3 = document.getElementById("myRange3");
+        slider3.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/vibratoOF");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var slider3 = document.getElementById("myRange4");
+        slider3.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/tremoloOF");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var VolumeSlider = document.getElementById("volSlider");
+        VolumeSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/volume");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var AttackSlider = document.getElementById("attack");
+        AttackSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/attack");
+            num = this.value;
+            xhr.send(num)
+        }
+        var HoldSlider = document.getElementById("hold");
+        HoldSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/hold");
+            num = this.value;
+            xhr.send(num)
+        }
+        var DecaySlider = document.getElementById("decay");
+        DecaySlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/decay");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var SustainSlider = document.getElementById("sustain");
+        SustainSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/sustain");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var ReleaseSlider = document.getElementById("release");
+        ReleaseSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/release");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var HarmonicSlider = document.getElementById("Harmonics");
+        HarmonicSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/harmonics");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var distortHSlider = document.getElementById("distortH");
+        distortHSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/distortH");
+            num = this.value;
+            xhr.send(num)
+        }
+
+        var distortPSlider = document.getElementById("distortP");
+        distortPSlider.oninput = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/distortP");
+            num = this.value;
+            xhr.send(num)
+        }
+    </script>
+</body>
+
+</html>

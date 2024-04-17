@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <title>Vibrato</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/727/727244.png">
+</head>
+<body>
+    <div className="home-container">
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="/" class="w3-bar-item w3-button"><b>SynthLab</b> Synth Education</a>
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small">
+                    <a href="/piano" class="w3-bar-item w3-button">Synthesizer</a>
+                    <a href="/vibratoLesson" class="w3-bar-item w3-button">Vibrato</a>
+                    <a href="/tremoloLesson" class="w3-bar-item w3-button">Tremolo</a>
+                    <a href="/aboutus" class="w3-bar-item w3-button">About Us</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <h1 className="home-text">
+            <span STYLE="font-size:40px">Vibrato</span>
+        </h1>
+        <h1>What is Vibrato?</h1>
+        <span>
+            <span>Vibrato is a musical effect that consists</span>
+            <span>of pulsating changes in pitch.  </span>
+        </span>
+        <h1>How is Vibrato Implemented?</h1>
+        <span>
+            <span>
+                For this synthesizer, a phase shift is added to the sinusoidal
+            </span>
+            <span>functions for which each waveform is based upon. As such, </span>
+            <span>
+                you are able to adjust the depth and oscillating frequency. 
+            </span>
+            <span>Try it for yourself!</span>
+        </span>
+        <h1>Example:</h1>
+        <span>
+            Adjust the slider and click the button or click "a" on your keyboard! 
+        </span>
+        <div class="slidecontainer">
+            <input type="range" min="0" max="10" value="0" step="1" class="slider" id="myRange">
+            <span class="sliderval" id="range_slider__value">Depth</span>
+        </div>
+        <input type="range" min="3" max="10" value="0" step="1" class="slider" id="myRange2">
+        <span class="sliderval" id="range_slider__value2">Oscillating Frequency</span>
+    </div>
+    <button id="playBtn">Play Me!</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!--<button id="synthBtn">To Synthesizer!</button> -->
+    <!--<a href="/piano">To Synthesizer!</a>
+    <a href="/">To MainPage!</a>-->
+    <!-- <button id="homeBtn">To Home!</button> -->
+</body>
+<script>
+    var slider = document.getElementById("myRange");
+    slider.oninput = function () {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/vibratolessondepth");
+        num = this.value;
+        xhr.send(num);
+    }
+    var slider2 = document.getElementById("myRange2");
+    slider2.oninput = function () {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/vibratolessonOF");
+        num = this.value;
+        xhr.send(num);
+    }
+    var btn = document.getElementById("playBtn");
+    btn.addEventListener('click', function (event) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/vibratolessonplay");
+        xhr.send();
+    });
+    // var btnSynth = document.getElementById("synthBtn");
+    // btn.addEventListener('click', function (event) {
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.open("GET", "/piano");
+
+    // });
+    // var btn = document.getElementById("homeBtn");
+    // btn.addEventListener('click', function (event) {
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.open("GET", "/vibratolessonplay");
+    //     xhr.send();
+    // });
+</script>
+
+</html>
