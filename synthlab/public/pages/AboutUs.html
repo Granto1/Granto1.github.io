@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/727/727244.png">
+    <title>About</title>
+    <link rel="stylesheet" href="css/genie/navbar.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div className="home-container">
+        <div class="topnav" id="myTopnav">
+            <a href="/" class="active"><b>SynthLab</b> Synth Education</a>
+            <a href="/piano">Synthesizer</a>
+            <div class="dropdown">
+                <button class="dropbtn">Lessons
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/vwhLesson">Volume, Waveforms, & Harmonics</a>
+                    <a href="/ahdsrLesson">AHDSR</a>
+                    <a href="/distortionLesson">Distortion</a>
+                    <a href="/tremoloLesson">Tremolo</a>
+                    <a href="/vibratoLesson">Vibrato</a>
+                </div>
+            </div>
+            <a href="/aboutus">About</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>
+        <div class="about-section">
+            <img src="https://ece.engin.umich.edu/wp-content/plugins/cbd-eecs-blocks/dist/images/ece-photo-placeholder.png" width = 200px>
+            <h1>About Us</h1>
+            <span>This website was created as part of a class taught by the University of Michigan ECE
+                department.</span>
+            <span>Engineering 100 Section 430 covers the fundamentals of Music Digital Signal Processing.</span>
+            <p>The team created this website as part of their final project for the class.
+                We hope you enjoyed learning about the effects listed on this site and played around with the
+                synthesizer!</p>
+        </div>
+
+        <h2 style="text-align:center">Our Team</h2>
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <img src="assets/images/about/Ethan.jpg" style="width:100%">
+                    <div class="container">
+                        <h2>Ethan Dyksterhouse</h2>
+                        <p class="title">Aerospace Engineering BSE</p>
+                        <p></p>
+                        <p>edhouse@umich.edu</p>
+                        <!-- <p><button class="button">Contact</button></p> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <img src="assets/images/about/grant.jpg" style="width:100%">
+                    <div class="container">
+                        <h2>Grant Wang</h2>
+                        <p class="title">Computer Engineering BSE</p>
+                        <p></p>
+                        <p>grantow@umich.edu</p>
+                        <!-- <p><button class="button">Contact</button></p> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <img src="assets/images/about/nick.JPG" style="width:100%">
+                    <div class="container">
+                        <h2>Nick Walvoord</h2>
+                        <p class="title">Computer Science BSE, Mathematics Minor</p>
+                        <p></p>
+                        <p>nwlvrd@umich.edu</p>
+                        <!-- <p><button class="button">Contact</button></p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
+
+</html>

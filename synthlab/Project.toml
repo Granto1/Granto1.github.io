@@ -1,0 +1,14 @@
+name = "synthlab"
+uuid = "82e8f5b9-7323-439e-bb98-4e11111cdb7b"
+authors = ["Granto1 <grantoyt@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+DependencyWalker = "7db386b5-e858-4964-8eb4-2fa66f8df882"
+Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
+GenieDeployDocker = "a082159f-dd50-4f6d-a3c5-00c38fd36577"
+Inflector = "6d011eab-0732-4556-8808-e463c76bf3b6"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+PortAudio = "80ea8bcb-4634-5cb3-8ee8-a132660d1d2d"
+Sound = "afe32e48-2646-410f-a1df-ae97debbc86b"
